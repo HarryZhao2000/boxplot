@@ -5,121 +5,127 @@ import random
 
 
 class boxplot:
-    def boxplot(ax, 
-                Data, 
+    def boxplot(ax,
+                Data,
                 outlier=True,
-                box_facecolor='white', 
-                box_edgecolor='k', 
-                outlier_facecolor='r', 
+                box_facecolor='white',
+                box_edgecolor='k',
+                outlier_facecolor='r',
                 outlier_edgecolor='r',
                 whisker_edgecolor='k',
                 median_edgecolor='k',
                 box_alpha=1.0,
                 outlier_alpha=1.0):
-        h=max(max(p) for p in Data) + 0.1*abs(max(max(p) for p in Data))
-        l=min(min(p) for p in Data) + 0.1*abs(min(min(p) for p in Data))
+        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
         count = len(Data)
-        center = [round(((h-l)/(count+1))*(x+1),8)/20 for x in range(count)]
-        print(center)
+        a = (h - l) / 2000
+        if outlier == True:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
+        else:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
         ax.axis('equal')
-        i=0
+        i = 0
         for data in Data:
             data = sorted(data)
             # percentile
             p = [0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
-            pen = [round((len(data)+1)*x,2) for x in p]
-            d = [np.quantile(data,j) for j in p]
-            
+            pen = [round((len(data) + 1) * x, 2) for x in p]
+            d = [np.quantile(data, j) for j in p]
+
             # outlier
-            IQR = d[-1]-d[0]
-            upper = d[-1] + 1.5*IQR
-            lower = d[0] - 1.5*IQR
-            Upper = min(upper,data[-1])
-            Lower = max(lower,data[0])
+            IQR = d[-1] - d[0]
+            upper = d[-1] + 1.5 * IQR
+            lower = d[0] - 1.5 * IQR
+            Upper = min(upper, data[-1])
+            Lower = max(lower, data[0])
             outliers = []
             for p in data:
                 if p > upper or p < lower:
                     outliers.append(p)
-            if outlier==True:
+            if outlier == True:
                 for p in outliers:
-                    rect = mpathes.Ellipse((center[i],p),0.04*center[-1],0.04*center[-1],
-                                           ec=outlier_edgecolor,fc=outlier_facecolor,alpha=outlier_alpha)  
+                    rect = mpathes.Ellipse((center[i], p), 0.04 * center[-1], 0.04 * center[-1],
+                                           ec=outlier_edgecolor, fc=outlier_facecolor, alpha=outlier_alpha)
                     ax.add_patch(rect)
-    
+
             # whisker
-            ax.hlines(Upper,center[i]-0.1*center[0],center[i]+0.1*center[0],whisker_edgecolor)
-            ax.hlines(Lower,center[i]-0.1*center[0],center[i]+0.1*center[0],whisker_edgecolor)
-            ax.vlines(center[i],Lower,d[0],whisker_edgecolor)
-            ax.vlines(center[i],d[-1],Upper,whisker_edgecolor)
-    
+            ax.hlines(Upper, center[i] - 0.1 * center[0], center[i] + 0.1 * center[0], whisker_edgecolor)
+            ax.hlines(Lower, center[i] - 0.1 * center[0], center[i] + 0.1 * center[0], whisker_edgecolor)
+            ax.vlines(center[i], Lower, d[0], whisker_edgecolor)
+            ax.vlines(center[i], d[-1], Upper, whisker_edgecolor)
+
             # median
-            ax.hlines(d[5],center[i]-0.2*center[0],center[i]+0.2*center[0],median_edgecolor,lw=3)
-            
+            ax.hlines(d[5], center[i] - 0.2 * center[0], center[i] + 0.2 * center[0], median_edgecolor, lw=3)
+
             # box
-            rect = mpathes.Rectangle((center[i]-0.2*center[0],d[0]),0.4*center[0],d[-1]-d[0],
-                                     ec=box_edgecolor,fc=box_facecolor,alpha = box_alpha)
+            rect = mpathes.Rectangle((center[i] - 0.2 * center[0], d[0]), 0.4 * center[0], d[-1] - d[0],
+                                     ec=box_edgecolor, fc=box_facecolor, alpha=box_alpha)
             ax.add_patch(rect)
-            i+=1
+            i += 1
         plt.show()
 
     def info_boxplot(ax,
-                 Data, 
-                 multiplebox=True, 
-                 outlier=True,
-                 box_facecolor='white', 
-                 box_edgecolor='k', 
-                 outlier_facecolor='r', 
-                 outlier_edgecolor='r',
-                 whisker_edgecolor='k',
-                 median_edgecolor='k',
-                 box_alpha = 1.0,
-                 outlier_alpha = 1.0):
-        h=max(max(p) for p in Data) + 0.1*abs(max(max(p) for p in Data))
-        l=min(min(p) for p in Data) + 0.1*abs(min(min(p) for p in Data))
+                     Data,
+                     multiplebox=True,
+                     outlier=True,
+                     box_facecolor='white',
+                     box_edgecolor='k',
+                     outlier_facecolor='r',
+                     outlier_edgecolor='r',
+                     whisker_edgecolor='k',
+                     median_edgecolor='k',
+                     box_alpha=1.0,
+                     outlier_alpha=1.0):
+        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
         count = len(Data)
-        center = [round(((h-l)/(count+1))*(x+1),8)/20 for x in range(count)]
+        a = (h - l) / 2000
+        if outlier == True:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
+        else:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
         print(center)
         ax.axis('equal')
-        i=0
+        i = 0
         for data in Data:
             # percentile
             p = [0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75]
-            pen = [round((len(data)+1)*x,8) for x in p]
+            pen = [round((len(data) + 1) * x, 8) for x in p]
             data = sorted(data)
-            d = [np.quantile(data,i) for i in p]
-            
+            d = [np.quantile(data, i) for i in p]
+
             # outlier
-            IQR = d[-1]-d[0]
-            upper = d[-1] + 1.5*IQR
-            lower = d[0] - 1.5*IQR
-            Upper = min(upper,data[-1])
-            Lower = max(lower,data[0])
-            if outlier==True:
+            IQR = d[-1] - d[0]
+            upper = d[-1] + 1.5 * IQR
+            lower = d[0] - 1.5 * IQR
+            Upper = min(upper, data[-1])
+            Lower = max(lower, data[0])
+            if outlier == True:
                 for p in outliers:
-                    rect = mpathes.Ellipse((center[i],p),0.04*center[-1],0.04*center[-1],
-                                           ec=outlier_edgecolor,fc=outlier_facecolor,alpha=outlier_alpha)  
+                    rect = mpathes.Ellipse((center[i], p), 0.04 * center[-1], 0.04 * center[-1],
+                                           ec=outlier_edgecolor, fc=outlier_facecolor, alpha=outlier_alpha)
                     ax.add_patch(rect)
-                
+
             # whisker
-            ax.hlines(Upper,center[i]-0.1*center[0],center[i]+0.1*center[0],whisker_edgecolor)
-            ax.hlines(Lower,center[i]-0.1*center[0],center[i]+0.1*center[0],whisker_edgecolor)
-            ax.vlines(center[i],Lower,d[0],whisker_edgecolor)
-            ax.vlines(center[i],d[-1],Upper,whisker_edgecolor)
-    
-            
+            ax.hlines(Upper, center[i] - 0.1 * center[0], center[i] + 0.1 * center[0], whisker_edgecolor)
+            ax.hlines(Lower, center[i] - 0.1 * center[0], center[i] + 0.1 * center[0], whisker_edgecolor)
+            ax.vlines(center[i], Lower, d[0], whisker_edgecolor)
+            ax.vlines(center[i], d[-1], Upper, whisker_edgecolor)
+
             # median
-            ax.hlines(d[5],center[i]-0.2*center[0],center[i]+0.2*center[0],median_edgecolor,lw=3)
-            
+            ax.hlines(d[5], center[i] - 0.2 * center[0], center[i] + 0.2 * center[0], median_edgecolor, lw=3)
+
             # multiplebox
-            if multiplebox==True:
+            if multiplebox == True:
                 for x in d:
-                    ax.hlines(d,center[i]-0.2*center[0],center[i]+0.2*center[0],box_edgecolor,lw=1)
-                    
+                    ax.hlines(d, center[i] - 0.2 * center[0], center[i] + 0.2 * center[0], box_edgecolor, lw=1)
+
             # box
-            rect = mpathes.Rectangle((center[i]-0.2*center[0],d[0]),0.4*center[0],d[-1]-d[0],
-                                     ec=box_edgecolor,fc=box_facecolor,alpha = box_alpha)
+            rect = mpathes.Rectangle((center[i] - 0.2 * center[0], d[0]), 0.4 * center[0], d[-1] - d[0],
+                                     ec=box_edgecolor, fc=box_facecolor, alpha=box_alpha)
             ax.add_patch(rect)
-            i+=1
+            i += 1
         plt.show()
 
     def hist_boxplot(ax,
@@ -141,7 +147,11 @@ class boxplot:
         h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
         l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
         count = len(Data)
-        center = [round(((h - l) / (count + 1)) * (x + 1) / 20, 8) for x in range(count)]
+        a = (h - l) / 2000
+        if outlier == True:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
+        else:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
         print(center)
         ax.axis('equal')
         for data in Data:
@@ -214,7 +224,13 @@ class boxplot:
         h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
         l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
         count = len(Data)
-        center = [round(((h - l) / (count + 1)) * (x + 1), 8) / 20 for x in range(count)]
+        a = (h - l) / 2000
+        if outlier == True:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
+            lw_l = 0.0001 * center[0]
+        else:
+            center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
+            lw_l = 0.005 * center[0]
         print(center)
         ax.axis('equal')
         i = 0
@@ -266,6 +282,6 @@ class boxplot:
             x = point[i][0]
             y = point[i][1]
             arrow = mpathes.FancyArrowPatch((point[i][0], point[i][1]), (point[i + 1][0], point[i + 1][1]),
-                                            arrowstyle='-', lw=0.005 * center[0], color='g')
+                                            arrowstyle='-', lw=lw_l, color='g')
             ax.add_patch(arrow)
         plt.show()

@@ -183,7 +183,9 @@ class boxplot:
                     ax.add_patch(rect)
             else:
                 w = (Upper - Lower) / n_bins
+            
             # hist
+            bar_width = (center[0]-center[1])*0.6
             bins = [w * i for i in range(n_bins + 1)]
             Bin = []
             for k in range(n_bins):
@@ -192,8 +194,10 @@ class boxplot:
                     if j >= bins[k] and j < bins[k + 1]:
                         s += 1
                 Bin.append(s)
+            M = max(Bin)
+            Mb = bar_width/M
             for c in range(len(Bin)):
-                rect = mpathes.Rectangle((center[i], bins[c] + Lower), Bin[c] / 5, w,
+                rect = mpathes.Rectangle((center[i], bins[c] + Lower), Bin[c]*Mb , w,
                                          ec=bin_edgecolor, fc=bin_facecolor, alpha=hist_alpha)
                 ax.add_patch(rect)
 

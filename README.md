@@ -5,8 +5,8 @@
 ## Table of Contents
 
 - [Background](#background)
-- [Install](#install)
 - [Files](#files)
+- [Install](#install)
 - [Usage](#usage)
 - [Badge](#badge)
 - [Related Efforts](#related-efforts)

@@ -16,8 +16,12 @@ class boxplot:
                 median_edgecolor='k',
                 box_alpha=1.0,
                 outlier_alpha=1.0):
-        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
-        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        try:
+            h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+            l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        except:
+            print('Wrong data type, please input a list of numerical list')
+            return 'Wrong data type, please input a list of numerical list'
         count = len(Data)
         a = (h - l) / 2000
         if outlier == True:
@@ -77,8 +81,12 @@ class boxplot:
                      median_edgecolor='k',
                      box_alpha=1.0,
                      outlier_alpha=1.0):
-        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
-        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        try:
+            h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+            l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        except:
+            print('Wrong data type, please input a list of numerical list')
+            return 'Wrong data type, please input a list of numerical list'
         count = len(Data)
         a = (h - l) / 2000
         if outlier == True:
@@ -148,8 +156,12 @@ class boxplot:
                      outlier_alpha=1.0,
                      hist_alpha=1.0):
         i = 0
-        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
-        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        try:
+            h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+            l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        except:
+            print('Wrong data type, please input a list of numerical list')
+            return 'Wrong data type, please input a list of numerical list'
         count = len(Data)
         a = (h - l) / 2000
         if outlier == True:
@@ -185,7 +197,6 @@ class boxplot:
                 w = (Upper - Lower) / n_bins
             
             # hist
-            bar_width = (center[1]-center[0])*0.6
             bins = [w * i for i in range(n_bins + 1)]
             Bin = []
             for k in range(n_bins):
@@ -195,7 +206,12 @@ class boxplot:
                         s += 1
                 Bin.append(s)
             M = max(Bin)
+            try:
+                bar_width = (center[1]-center[0])*0.6
+            except:
+                bar_width=M
             Mb = bar_width/M
+            
             for c in range(len(Bin)):
                 rect = mpathes.Rectangle((center[i], bins[c] + Lower), Bin[c]*Mb , w,
                                          ec=bin_edgecolor, fc=bin_facecolor, alpha=hist_alpha)
@@ -229,16 +245,20 @@ class boxplot:
                          box_alpha=1.0,
                          outlier_alpha=1.0,
                          point_alpha=0.3):
-        h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
-        l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        try:
+            h = max(max(p) for p in Data) + 0.1 * abs(max(max(p) for p in Data))
+            l = min(min(p) for p in Data) + 0.1 * abs(min(min(p) for p in Data))
+        except:
+            print('Wrong data type, please input a list of numerical list')
+            return 'Wrong data type, please input a list of numerical list'
         count = len(Data)
         a = (h - l) / 2000
         if outlier == True:
             center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
-            lw_l = 0.0001 * h
+            # lw_l = 0.000001 * h
         else:
             center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
-            lw_l = 0.005 * h
+            # lw_l = 0.00005 * h
         print(center)
         ax.axis('equal')
         i = 0
@@ -262,7 +282,7 @@ class boxplot:
                     outliers.append(p)
             if outlier == True:
                 for p in outliers:
-                    rect = mpathes.Ellipse((center[i], p), 0.04 * center[-1], 0.04 * center[-1],
+                    rect = mpathes.Ellipse((center[i], p), 0.02 * center[-1], 0.02 * center[-1],
                                            ec=outlier_edgecolor, fc=outlier_facecolor, alpha=outlier_alpha)
                     rect.set_alpha(0.7)
                     ax.add_patch(rect)
@@ -291,6 +311,6 @@ class boxplot:
             x = point[i][0]
             y = point[i][1]
             arrow = mpathes.FancyArrowPatch((point[i][0], point[i][1]), (point[i + 1][0], point[i + 1][1]),
-                                            arrowstyle='-', lw=lw_l, color='g')
+                                            arrowstyle='-', color='g')
             ax.add_patch(arrow)
         plt.show()

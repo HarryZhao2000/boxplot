@@ -23,7 +23,7 @@ The goals for this repository are:
 2. **A Report**. It documents the different types of *boxplots* and explain how to use the methods we have created, while illustrating with plots generated with our work..
 3. A **Jupyter Noyerbook file** for users as a user guide.
 
-##Install
+## Install
 
 This project can only be installed by cloning this git.
 

@@ -135,7 +135,7 @@ outlier_alpha: float
 fig,ax = plt.subplots()
 boxplot(ax,data,outlier_facecolor='w', outlier_edgecolor='k',outlier=True)
 ```
-<img src=boxplot.png>
+<img src=./Plot/boxplot.png>
 
 <font size=5>**boxplot.info_boxplot**</font>
 
@@ -193,7 +193,7 @@ fig,ax = plt.subplots()
 plt.figure(figsize=(16,16))
 info_boxplot(ax,data,outlier=False,multiplebox=True)
 ```
-<img src=info_boxplot.png>
+<img src=./Plot/info_boxplot.png>
 
 <font size=5>**boxplot.hist_boxplot**</font>
 
@@ -264,7 +264,7 @@ hist_alpha: float
 fig,ax = plt.subplots()
 hist_boxplot(ax,data,outlier=False)
 ```
-<img src=hist_boxplot.png>
+<img src=./Plot/hist_boxplot.png>
 
 <font size=5>**boxplot.creative_boxplot**</font>
 
@@ -275,7 +275,7 @@ boxplot.creative_boxplot(ax, Data, outlier=True, box_facecolor='white', box_edge
 Make a box and whisker plot in the axes with actual data points.
 + **Compared to the original boxplot**, the creative_boxplot function plot **actual data points** in the graph, showing the location and degree of dense for the data. The points are draw with 30% default transparency, so **the gradient of color indicates the dense of data**. The darker, the denser.
 
-+ **Besides**, the creative_boxplot connects the median of different boxplots with a default green line, showing the variation of median for different boxplots intuitively.
++ **Besides**, the creative_boxplot connects the median of different boxplots with a default green line, showing the variation of median for different boxplots intuitively. Also the green lin can show the trend of median with time changes.
 
 + Other elements are the same as original boxplots.
 
@@ -323,7 +323,7 @@ point_alpha: float
 fig,ax = plt.subplots()
 creative_boxplot(ax,data,outlier=False)
 ```
-<img src=creative_boxplot.png>
+<img src=./Plot/creative_boxplot.png>
 
 ## Test
 

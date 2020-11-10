@@ -33,9 +33,15 @@ $ git clone https://github.com/HurryZhao/boxplot.git
 
 ## Usage
 
-```sh
+import the `boxplot.py` as a module and use the method. Following is an example:
 
+```python
+from boxplot import boxplot as bp
 
+data = [[...],[...]]
+
+fig,ax=matplotlib.pyplot.subplots()
+bx.boxplot(ax,data)
 ```
 
 ## Badge

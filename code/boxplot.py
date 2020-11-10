@@ -185,7 +185,7 @@ class boxplot:
                 w = (Upper - Lower) / n_bins
             
             # hist
-            bar_width = (center[0]-center[1])*0.6
+            bar_width = (center[1]-center[0])*0.6
             bins = [w * i for i in range(n_bins + 1)]
             Bin = []
             for k in range(n_bins):

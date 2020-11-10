@@ -6,6 +6,7 @@
 
 - [Background](#background)
 - [Install](#install)
+- [Files](#files)
 - [Usage](#usage)
 - [Badge](#badge)
 - [Related Efforts](#related-efforts)
@@ -22,6 +23,17 @@ The goals for this repository are:
 1. A well defined **method**. This can be imported and used to generate different types of box plot .
 2. **A Report**. It documents the different types of *boxplots* and explain how to use the methods we have created, while illustrating with plots generated with our work..
 3. A **Jupyter Noyerbook file** for users as a user guide.
+
+
+
+## Files
+
+- [IV_Project1.ipynb](https://github.com/HurryZhao/boxplot/blob/master/IV_Project1.ipynb) The original file for the box plot method.
+- [code](https://github.com/HurryZhao/boxplot/tree/master/code)
+  - [boxplot.py](https://github.com/HurryZhao/boxplot/blob/master/code/boxplot.py) The module used to draw box plots
+  - [test.ipynb](https://github.com/HurryZhao/boxplot/blob/master/code/test.ipynb) The file to test the module
+  - [main.py](https://github.com/HurryZhao/boxplot/blob/master/code/main.py) An example how to use the module
+- [results_merged.csv](https://github.com/HurryZhao/boxplot/blob/master/results_merged.csv) The dataset we used
 
 ## Install
 

@@ -101,6 +101,10 @@ class boxplot:
             lower = d[0] - 1.5 * IQR
             Upper = min(upper, data[-1])
             Lower = max(lower, data[0])
+            outliers = []
+            for p in data:
+                if p > upper or p < lower:
+                    outliers.append(p)
             if outlier == True:
                 for p in outliers:
                     rect = mpathes.Ellipse((center[i], p), 0.04 * center[-1], 0.04 * center[-1],
@@ -227,10 +231,10 @@ class boxplot:
         a = (h - l) / 2000
         if outlier == True:
             center = [round(((h - l) / (count + 1)) * (x + 1), 8) for x in range(count)]
-            lw_l = 0.0001 * center[0]
+            lw_l = 0.0001 * h
         else:
             center = [round(((h - l) / (count + 1)) * (x + 1), 8) / a for x in range(count)]
-            lw_l = 0.005 * center[0]
+            lw_l = 0.005 * h
         print(center)
         ax.axis('equal')
         i = 0
@@ -274,6 +278,7 @@ class boxplot:
 
             # median
             ax.hlines(d[5], center[i] - 0.2 * center[0], center[i] + 0.2 * center[0], median_edgecolor, lw=3)
+            
             # line
             point.append([center[i], d[5]])
             i += 1
